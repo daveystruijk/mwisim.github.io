@@ -38,13 +38,13 @@ const makePlayer = (values: any) => {
 
     const player: any = new Player();
 
-    player.staminaLevel = 110;
-    player.intelligenceLevel = 110;
+    player.staminaLevel = 113 + 3;
+    player.intelligenceLevel = 109 + 4;
     player.attackLevel = 1;
     player.powerLevel = 1;
-    player.defenseLevel = 110;
+    player.defenseLevel = 110 + 4;
     player.rangedLevel = 60;
-    player.magicLevel = 120;
+    player.magicLevel = 119 + 4;
 
     player.abilities = [
         new Ability(values.set.abilities.a, levels[values.set.abilities.a] || 40),
