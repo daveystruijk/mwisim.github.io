@@ -11,7 +11,7 @@ import cliProgress from "cli-progress";
 const ONE_SECOND = 1e9;
 const ONE_HOUR = 60 * 60 * ONE_SECOND;
 const SIM_SHORT_HOURS = 1;
-const SIM_LONG_HOURS = 100;
+const SIM_LONG_HOURS = 24;
 
 const levels = {
   "/abilities/heal": 40,
@@ -44,7 +44,7 @@ const makePlayer = (values: any) => {
     player.powerLevel = 1;
     player.defenseLevel = 110;
     player.rangedLevel = 60;
-    player.magicLevel = 110;
+    player.magicLevel = 120;
 
     player.abilities = [
         new Ability(values.set.abilities.a, levels[values.set.abilities.a] || 40),
@@ -91,7 +91,7 @@ const trial = async (player, zone, timeLimit: number) => {
 // Runs the combat sim in a loop for all possible combinations in ./src/search_space/{spaceName},
 // then saves the top results in ./{spaceName}__{zoneName}.json
 (async () => {
-    const zoneName = "infernal_abyss";
+    const zoneName = "sorcerers_tower";
     const spaceName = "mage_ice_narrow";
 
     const zone = new Zone(`/actions/combat/${zoneName}`);
@@ -122,7 +122,7 @@ const trial = async (player, zone, timeLimit: number) => {
             if (score > highscore.score) {
                 const accurateScore = await objectiveFn(values, SIM_LONG_HOURS);
                 highscores.push({ values, score: accurateScore });
-                highscores = orderBy(highscores, "score", "desc").slice(0, 20);
+                highscores = orderBy(highscores, "score", "desc").slice(0, 10);
                 writeFileSync(`${spaceName}__${zoneName}.json`, JSON.stringify(highscores));
                 break;
             }
